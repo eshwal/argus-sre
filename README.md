@@ -3,7 +3,7 @@
 🏗 Architecture Diagram
 Argus SRE utilizes a Multi-Agent Reasoning pipeline within an Elastic Agentic Workflow. This design ensures that log analysis is separated from high-level correlation logic, maximizing accuracy and reducing hallucinations.
 
-```
+```mermaid
 graph TD
     %% Trigger
     A[Elastic Alert: 500 Errors] -->|Invokes| B(Autonomous-Incident-Engine)
