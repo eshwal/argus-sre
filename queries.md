@@ -2,7 +2,7 @@
 
 This document catalogs the primary queries used by the Autonomous-Incident-Engine to correlate logs, metadata, and code changes.
 
-1. Triage: Identify Top Error Patterns
+1. Triage: Identify Top Error Patterns (Tool: diagnose_500_errors)
    
 Used by the Triage Agent to see the logs for which services are failing and what the specific error messages are.
 
@@ -18,7 +18,7 @@ FROM "logs-incident-*" | WHERE http.response.status_code >= 500
 | LIMIT 10
 ```
 
-2. Context: Fetch Service Metadata
+2. Context: Fetch Service Metadata (Tool: get_team_metadata)
    
 Used by the Specialist Agent to identify the team owner,slack_channel and runbook url linked to a failing service.
 
@@ -30,7 +30,7 @@ FROM "service-metadata"
 | KEEP team.owner, team.slack_channel, runbook_url
 ```
 
-3. Correlation: Identify Recent Code Changes
+3. Correlation: Identify Recent Code Changes (Tool: check_recent_prs)
    
 Used by the Specialist Agent to find Pull Requests merged shortly before the incident began.
 
