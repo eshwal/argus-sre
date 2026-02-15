@@ -1,4 +1,4 @@
-#🔍 Investigation Queries
+# 🔍 Investigation Queries
 
 This document catalogs the primary queries used by the Autonomous-Incident-Engine to correlate logs, metadata, and code changes.
 
@@ -43,7 +43,7 @@ FROM "github-prs"
 | LIMIT 3
 | KEEP pr.title, pr.change_summary, pr.author, pr.html_url, merged_at
 ```
-#💡 How the AI uses these queries
+# 💡 How the AI uses these queries
 
 The Autonomous-Incident-Engine uses a "Chain of Thought" process:
 
