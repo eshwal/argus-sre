@@ -1,6 +1,6 @@
 # Argus SRE: Autonomous Incident Engine
 
-# 🏗 Architecture Diagram
+## 🏗 Architecture Diagram
 
 Argus SRE utilizes a Multi-Agent Reasoning pipeline within an Elastic Agentic Workflow. This design ensures that log analysis is separated from high-level correlation logic, maximizing accuracy and reducing hallucinations.
 
@@ -32,13 +32,13 @@ graph TD
     style T4 fill:#d4f1f4,stroke:#05445e,stroke-dasharray: 5 5
 ```
 
-# 📝 Project Overview
+## 📝 Project Overview
 
 The Problem: SRE teams suffer from "Alert Fatigue." When a service fails, engineers must manually hunt through logs and cross-reference GitHub deployments to find the "why." This context-switching increases MTTR (Mean Time To Recovery).
 
 The Solution: Argus SRE is an autonomous, event-driven engine built natively on Elastic Workflows. It transforms raw alerts into actionable Root Cause Analysis (RCA) reports by correlating system logs with GitHub metadata in real-time.
 
-# 🤖 Multi-Agent Logic
+## 🤖 Multi-Agent Logic
 
 The engine utilizes a two-step reasoning process to ensure high-fidelity results:
 
@@ -46,7 +46,7 @@ Agent 1: Argus Triage: Parses the incoming alert and queries logs-incident-* usi
 
 Agent 2: Argus Specialist: Takes the diagnosis from Agent 1 and uses specialized tools to fetch recent GitHub PRs and Team Metadata. It performs temporal reasoning to match code changes against the failure symptoms.
 
-# ✨ Key Features
+## ✨ Key Features
 
 Deterministic Reasoning: Uses ES|QL pipes for precise data retrieval instead of fuzzy semantic-only searches.
 
@@ -54,10 +54,11 @@ Logical Chaining: The output of the Triage agent acts as the context for the Spe
 
 Automated Persistence: Every investigation is archived to the sre-ai-investigations index, building a persistent knowledge base of AI-resolved incidents.
 
-# 📂 Repository Structure
+## 📂 Repository Structure
 
 <details>
 <summary>Click to expand folder tree</summary>
+    
 ```text
 argus-sre/
 ├── LICENSE                    # MIT License
@@ -74,7 +75,7 @@ argus-sre/
 ```
 </details>
     
-# 🛠 Technical Setup
+## 🛠 Technical Setup
 
 Dependencies: Install requirements via pip install -r requirements.txt.
 
@@ -88,7 +89,7 @@ Alerting: Configure a Custom Threshold Alert in Elastic Observability as defined
 
 Agent Tools: Ensure the agents are connected to the ES|QL tools defined in queries.md.
 
-# ⚙️ Configuration (Action Required)
+## ⚙️ Configuration (Action Required)
 
 To protect sensitive information, certain fields are marked as [REDACTED]. Before running:
 
@@ -98,6 +99,6 @@ Scripts: Update log_ingestor.py with your Elastic ENDPOINT_URL and API_KEY.
 
 Permissions: Ensure your Elastic API Key has write access to the indices defined in setup_indices.md.
 
-⚖️ License
+## ⚖️ License
 
 This project is licensed under the MIT License.
