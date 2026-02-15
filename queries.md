@@ -1,7 +1,9 @@
-🔍 Investigation Queries
+#🔍 Investigation Queries
+
 This document catalogs the primary queries used by the Autonomous-Incident-Engine to correlate logs, metadata, and code changes.
 
 1. Triage: Identify Top Error Patterns
+   
 Used by the Triage Agent to see the logs for which services are failing and what the specific error messages are.
 
 Language: ES|QL
@@ -17,6 +19,7 @@ FROM "logs-incident-*" | WHERE http.response.status_code >= 500
 ```
 
 2. Context: Fetch Service Metadata
+   
 Used by the Specialist Agent to identify the team owner,slack_channel and runbook url linked to a failing service.
 
 Language: ES|QL
@@ -28,6 +31,7 @@ FROM "service-metadata"
 ```
 
 3. Correlation: Identify Recent Code Changes
+   
 Used by the Specialist Agent to find Pull Requests merged shortly before the incident began.
 
 Language: ES|QL
@@ -39,7 +43,6 @@ FROM "github-prs"
 | LIMIT 3
 | KEEP pr.title, pr.change_summary, pr.author, pr.html_url, merged_at
 ```
-
 #💡 How the AI uses these queries
 
 The Autonomous-Incident-Engine uses a "Chain of Thought" process:
