@@ -69,9 +69,7 @@ argus-sre/
 ├── alert_config.md            # Details of the 500-error Alert trigger
 ├── setup_indices.md           # PUT/POST commands for the 4 indices
 ├── queries.md                 # Documentation of ES|QL queries used
-└── prompts/                   # Logic layer for the Multi-Agent system
-    ├── triage_analysis.md     # Instructions for Agent 1 (Triage)
-    └── specialist_deep_dive.md # Instructions for Agent 2 (Specialist)
+└── agents.md                  # Instructions and tools for Agents 
 ```
 </details>
     
