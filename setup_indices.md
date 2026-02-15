@@ -4,7 +4,7 @@ This document provides the complete schema required for the Autonomous-Incident-
 
 1. Incident Logs Index
 
-Targeted by the logs_ingestor.py script.
+Targeted by the log_ingestor.py script.
 
 Index: logs-incident-mvp | Data View: Incident logs (Pattern: logs-incident-*)
 
@@ -214,4 +214,4 @@ POST /github-prs/_doc/pr-98
   "merged_at": "2026-02-07T10:00:00Z"
 }
 ```
-Trigger Incident: Run logs_ingestor.py. The alert will fire, and the Autonomous-Incident-Engine will correlate the 500 errors with the relevant PRs.
+Trigger Incident: Run log_ingestor.py. The alert will fire, and the Autonomous-Incident-Engine will correlate the 500 errors with the relevant PRs.
