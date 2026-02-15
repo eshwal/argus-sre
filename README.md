@@ -4,6 +4,7 @@
 Argus SRE utilizes a Multi-Agent Reasoning pipeline within an Elastic Agentic Workflow. This design ensures that log analysis is separated from high-level correlation logic, maximizing accuracy and reducing hallucinations.
 
 ```mermaid
+%%{init: {"theme": ""}}%%
 graph TD
     %% Trigger
     A[Elastic Alert: 500 Errors] -->|Invokes| B(Autonomous-Incident-Engine)
@@ -37,16 +38,21 @@ The Solution: Argus SRE is an autonomous, event-driven engine built natively on 
 
 🤖 Multi-Agent Logic
 The engine utilizes a two-step reasoning process to ensure high-fidelity results:
+
 Agent 1: Argus Triage: Parses the incoming alert and queries logs-incident-* using ES|QL to identify the specific error signature (e.g., Database Connection Timeout).
+
 Agent 2: Argus Specialist: Takes the diagnosis from Agent 1 and uses specialized tools to fetch recent GitHub PRs and Team Metadata. It performs temporal reasoning to match code changes against the failure symptoms.
 
 ✨ Key Features
 Deterministic Reasoning: Uses ES|QL pipes for precise data retrieval instead of fuzzy semantic-only searches.
+
 Logical Chaining: The output of the Triage agent acts as the context for the Specialist agent, creating a robust "Chain of Thought."
+
 Automated Persistence: Every investigation is archived to the sre-ai-investigations index, building a persistent knowledge base of AI-resolved incidents.
 
 📂 Repository Structure
-Plaintext
+
+```text
 argus-sre/
 ├── LICENSE                    # MIT License
 ├── README.md                  # Project documentation & architecture
@@ -58,13 +64,19 @@ argus-sre/
 └── prompts/                   # Logic layer for the Multi-Agent system
     ├── triage_analysis.md     # Instructions for Agent 1 (Triage)
     └── specialist_deep_dive.md # Instructions for Agent 2 (Specialist)
+```
     
 🛠 Technical Setup
 Workflows: Import the argus-sre-workflow.yaml file into your Elastic Project.
+
 Data Layer: Execute the mapping commands in setup_indices.md via the Dev Tools Console to initialize the PRs and Metadata indices.
+
 Log Ingestion: Run python log_ingestor.py to populate the indices with sample incident logs and GitHub pull request data.
+
 Alerting: Configure a Custom Threshold Alert in Elastic Observability as defined in alert_config.md.
+
 Agent Tools: Ensure the agents are connected to the ES|QL tools defined in queries.md.
 
 ⚖️ License
+
 This project is licensed under the MIT License.
