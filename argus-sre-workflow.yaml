@@ -1,0 +1,66 @@
+name: Autonomous-Incident-Engine
+description: A multi-step reasoning agent that correlates Elastic alerts with GitHub changes to reduce MTTA.
+triggers:
+  - type: alert
+steps:
+  - name: triage_analysis
+    type: ai.agent
+    agent-id: triage-incident-agent
+    with:
+      message: |
+        Analyze the following alert: {{event.alerts[0].kibana.alert.reason}}
+        Incident Logs: {{event.alerts[0].message}}
+
+        Identify:
+        1. Service name (normalized)
+        2. Error signature/type (e.g., database, auth, memory)
+        3. A summary of the failure symptoms.
+
+  - name: specialist_deep_dive
+    type: ai.agent
+    agent-id: specialist-agent
+    with:
+      message: |
+        I have a Triage Report: {{steps.triage_analysis.output.message}}
+
+        CONTEXT:
+        Alert Start Time: {{event.alerts[0]["@timestamp"]}}
+
+        TASKS:
+        1. Fetch metadata via 'get_team_metadata'.
+        2. Fetch recent PRs via 'check_recent_prs'.
+        3. VERIFICATION: Compare PR merge times against the Alert Start Time. 
+        4. REASONING: Correlate the PR 'change_summary' with the Triage 'error_type'.
+
+        Provide a final resolution summary including Root Cause, Owner, and Runbook.
+ 
+  - name: post_to_slack
+    type: slack_api
+    connector-id: [REDACTED]
+    with:
+      subAction: postMessage
+      subActionParams:
+        channelIds:
+          - [REDACTED]
+        text: |
+          🚨*New Incident Analysis Report* 🚨
+          **INCIDENT:** {{event.alerts[0].kibana.alert.reason}}
+          **SERVICE:** {{event.alerts[0].service.name}}
+
+          *Triage Result:*
+          {{steps.triage_analysis.output.message}}
+
+          *Specialist Investigation:*
+          {{steps.specialist_deep_dive.output.message}}
+
+  - name: archive_to_history
+    type: elasticsearch.index
+    with:
+      id: ""
+      index: sre-ai-investigations
+      document:
+        schema:
+          "@timestamp": now
+          alert_id: "{{event.alerts[0].id}}"
+          service: "{{event.alerts[0].service.name}}"
+          full_analysis: "{{ steps.specialist_deep_dive.output.message }}"
