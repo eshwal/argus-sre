@@ -1,5 +1,7 @@
 # Argus SRE: Autonomous Incident Engine
 
+**Watch the Demo Video:** [https://youtu.be/mmDDuaEFiTY]
+
 ## 🏗 Architecture Diagram
 
 Argus SRE utilizes a Multi-Agent Reasoning pipeline within an Elastic Agentic Workflow. This design ensures that log analysis is separated from high-level correlation logic, maximizing accuracy and reducing hallucinations.
