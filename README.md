@@ -1,6 +1,6 @@
 # Argus SRE: Autonomous Incident Engine
 
-**Watch the Demo Video:** [https://youtu.be/mmDDuaEFiTY]
+**Watch the Demo Video:** https://youtu.be/mmDDuaEFiTY
 
 ## 🏗 Architecture Diagram
 
